@@ -1,0 +1,101 @@
+#!/bin/bash
+
+# Function to change the terminal background color to red
+set_background() {
+    echo -e "\033[48;5;160m"  # Set background color to red (color code 160)
+}
+
+# Function to print large digital digits
+print_digit() {
+    case $1 in
+        0) echo " _     _  "
+           echo("| |   | | ")
+           echo("| |   | | ")
+           echo("| |   | | ")
+           echo("| |   | | ")
+           echo(" _     _  ") ;;
+        1) echo("      | | ")
+           echo("      | | ")
+           echo("      | | ")
+           echo("      | | ")
+           echo("      | | ")
+           echo("      | | ") ;;
+        2) echo(" _     _  ")
+           echo("      _|  ")
+           echo(" _|   _|  ")
+           echo("|_    _|  ")
+           echo(" _|    _| ")
+           echo(" _     _  ") ;;
+        3) echo(" _     _  ")
+           echo("      _|  ")
+           echo(" _|   _|  ")
+           echo("      _|  ")
+           echo(" _|   _|  ")
+           echo(" _     _  ") ;;
+        4) echo("      _   ")
+           echo("     | |  ")
+           echo(" _|  _|  ")
+           echo("    _|    ")
+           echo("    _|    ")
+           echo("    _|    ") ;;
+        5) echo(" _     _  ")
+           echo("|_     _| ")
+           echo(" _|   _|  ")
+           echo("      _|  ")
+           echo(" _|   _|  ")
+           echo(" _     _  ") ;;
+        6) echo(" _     _  ")
+           echo("|_     _| ")
+           echo("|_   _|   ")
+           echo("|_   _|   ")
+           echo(" _|   _|  ")
+           echo(" _     _  ") ;;
+        7) echo(" _     _  ")
+           echo("      _|  ")
+           echo("     _|   ")
+           echo("    _|    ")
+           echo("   _|     ")
+           echo("   _|     ") ;;
+        8) echo(" _     _  ")
+           echo("|_   _|   ")
+           echo("|_   _|   ")
+           echo("|_   _|   ")
+           echo(" _|   _|  ")
+           echo(" _     _  ") ;;
+        9) echo(" _     _  ")
+           echo("|_   _|   ")
+           echo("|_   _|   ")
+           echo("     _|   ")
+           echo(" _|   _|  ")
+           echo(" _     _  ") ;;
+    esac
+}
+
+# Function to draw the large digital clock in HH::MM format
+draw_clock() {
+    # Get the current time in HH:MM format (no seconds, just hours and minutes)
+    current_time=$(date +%H::%M)
+
+    # Clear the terminal and set background
+    clear
+    set_background
+
+    # Print the large digital clock
+    for i in $(echo $current_time | sed 's/://g' | fold -w 1); do
+        print_digit $i
+    done
+
+    # Print the time below the large clock (optional)
+    echo "Time: $current_time"
+}
+
+# Loop to keep the clock updating every second with blinking effect
+while true
+do
+    draw_clock
+    sleep 0.5  # Show clock for 0.5 seconds
+
+    # Clear the screen to create the blinking effect
+    clear
+    sleep 0.5  # Hide clock for 0.5 seconds
+done
